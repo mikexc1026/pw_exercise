@@ -1,47 +1,44 @@
-import logo from './logo.svg';
 import './App.css';
-import React from 'react';
+import React, { Component } from 'react';
+import { Switch, Route, Link } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
+import AddCar from './components/add-car.component';
+import Car from './components/car.component';
+import CarsList from './components/car-list.component';
 
-const { useState } = React
+class App extends Component {
+  render() {
+    return (
+      <div>
+        <nav className="navbar navbar-expand navbar-dark bg-dark">
+          <a href="/cars" className="navbar-brand">
+            My Garage
+          </a>
+          <div className="navbar-nav mr-auto">
+            <li className="nav-item">
+              <Link to={"/cars"} className="nav-link">
+                Cars
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to={"/cars/add"} className="nav-link">
+                Add
+              </Link>
+            </li>
+          </div>
+        </nav>
 
-const Button = ({increment, onClickFunction}) => {
-  const handleClick = () => {
-    onClickFunction(increment);
+        <div className="container mt-3">
+          <Switch>
+            <Route exact path="/cars" component={CarsList} />
+            <Route exact path="/cars/add" component={AddCar} />
+            <Route path="/cars/:id" component={Car} />
+          </Switch>
+        </div>
+      </div>
+    );
   }
-  return <button onClick={handleClick}>+{increment}</button>
-}
-
-const App = () => {
-  const [count, setCount] = useState(0);
-
-  const incrementCount = increment => {
-    setCount(count + increment);
-  }
-
-  return (
-    <div>
-      <Button increment={1} onClickFunction={incrementCount} />
-      <Button increment={10} onClickFunction={incrementCount} />
-      <Button increment={100} onClickFunction={incrementCount} />
-      <Button increment={1000} onClickFunction={incrementCount} />
-      <span>{count}</span>
-      <table>
-        <thead>
-          <th>Year</th>
-          <th>Make</th>
-          <th>Model</th>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1994</td>
-            <td>Ford</td>
-            <td>F-150</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  )
 }
 
 export default App;
