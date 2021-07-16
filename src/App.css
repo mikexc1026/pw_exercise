@@ -13,3 +13,58 @@
   max-width: 300px;
   margin: auto;
 }
+
+.car-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 300px);
+  grid-gap: 1rem;
+  justify-content: center;
+}
+
+div.card {
+  width: 300px;
+  background-color: #DCD7CF;
+  margin: 0 auto;
+}
+
+.card-img-top {
+  margin: 0 auto;
+}
+
+.edit {
+  position: relative;
+  right: -259px;
+  top: 5px;
+  color: black;
+}
+
+.label {
+  font-weight: bold;
+}
+
+.level {
+  border-radius: 10px;
+  padding: 1px 15px;
+  text-align: center;
+  vertical-align: middle;
+  font-weight: bold;
+  color: white;
+}
+
+.LOW {
+  background: #DEC801;
+}
+
+.FULL {
+  background: #039600;
+}
+
+.EMPTY {
+  background: #D40202;
+}
+
+.container-btn {
+margin: 15px auto;
+display: flex;
+justify-content: space-evenly;
+}
