@@ -6,6 +6,8 @@ export default class AddCar extends Component {
     super(props);
     this.onChangeMake = this.onChangeMake.bind(this);
     this.onChangeModel = this.onChangeModel.bind(this);
+    this.onChangeYear = this.onChangeYear.bind(this);
+    this.onChangeBlinkerFluidLevel = this.onChangeBlinkerFluidLevel.bind(this);
     this.saveCar = this.saveCar.bind(this);
     this.newCar = this.newCar.bind(this);
 
@@ -13,7 +15,8 @@ export default class AddCar extends Component {
       id: null,
       make: "",
       model: "", 
-      published: false,
+      year: "",
+      blinkerFluidLevel: 'FULL',
 
       submitted: false
     };
@@ -31,10 +34,24 @@ export default class AddCar extends Component {
     });
   }
 
+  onChangeYear(e) {
+    this.setState({
+      year: e.target.value
+    });
+  }
+
+  onChangeBlinkerFluidLevel(e) {
+    this.setState({
+      blinkerFluidLevel: e.target.value
+    });
+  }
+
   saveCar() {
     var data = {
       make: this.state.make,
-      model: this.state.model
+      model: this.state.model,
+      year: this.state.year,
+      blinkerFluidLevel: this.state.blinkerFluidLevel
     };
 
     CarDataService.create(data)
@@ -43,6 +60,8 @@ export default class AddCar extends Component {
           id: response.data.id,
           make: response.data.make,
           model: response.data.model,
+          year: response.data.year,
+          blinkerFluidLevel: response.data.blinkerFluidLevel,
           submitted: true
         });
         console.log(response.data);
@@ -57,12 +76,15 @@ export default class AddCar extends Component {
       id: null,
       make: "",
       model: "",
+      year: "",
+      blinkerFluidLevel: "",
 
       submitted: false
     });
   }
 
   render() {
+    
     return (
       <div className="submit-form">
         {this.state.submitted ? (
@@ -100,9 +122,40 @@ export default class AddCar extends Component {
               />
             </div>
 
-            <button onClick={this.saveCar} className="btn btn-success">
-              Submit
-            </button>
+            <div className="form-group">
+              <label htmlFor="year">Year</label>
+              <input
+                type="number"
+                className="form-control"
+                id="year"
+                required
+                value={this.state.year}
+                onChange={this.onChangeYear}
+                name="year"
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="blinkerFluidLevel">Blinker Fluid Level</label>
+              <select
+                className="form-control"
+                id="blinkerFluidLevel"
+                required
+                value={this.state.blinkerFluidLevel}
+                onChange={this.onChangeBlinkerFluidLevel}
+                name="blinkerFluidLevel"
+              >
+                <option value="FULL">FULL</option>
+                <option value="LOW">LOW</option>
+                <option value="EMPTY">EMPTY</option>
+              </select>
+            </div>
+            <div className='container-btn'>
+              <button onClick={this.saveCar} className="btn btn-success">
+                Submit
+              </button>
+            </div>
+            
           </div>
         )}
       </div>

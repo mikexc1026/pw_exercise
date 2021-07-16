@@ -6,6 +6,8 @@ export default class Car extends Component {
     super(props);
     this.onChangeMake = this.onChangeMake.bind(this);
     this.onChangeModel = this.onChangeModel.bind(this);
+    this.onChangeYear = this.onChangeYear.bind(this);
+    this.onChangeBlinkerFluidLevel = this.onChangeBlinkerFluidLevel.bind(this);
     this.getCar = this.getCar.bind(this);
     this.updateCar = this.updateCar.bind(this);
     this.deleteCar = this.deleteCar.bind(this);
@@ -15,6 +17,8 @@ export default class Car extends Component {
         id: null,
         make: "",
         model: "",
+        year: "",
+        blinkerFluidLevel: ""
       },
       message: ""
     };
@@ -44,6 +48,28 @@ export default class Car extends Component {
       currentCar: {
         ...prevState.currentCar,
         model: model
+      }
+    }));
+  }
+
+  onChangeYear(e) {
+    const year = e.target.value;
+    
+    this.setState(prevState => ({
+      currentCar: {
+        ...prevState.currentCar,
+        year: year
+      }
+    }));
+  }
+
+  onChangeBlinkerFluidLevel(e) {
+    const blinkerFluidLevel = e.target.value;
+    
+    this.setState(prevState => ({
+      currentCar: {
+        ...prevState.currentCar,
+        blinkerFluidLevel: blinkerFluidLevel
       }
     }));
   }
@@ -94,54 +120,75 @@ export default class Car extends Component {
 
     return (
       <div>
-        {currentCar ? (
-          <div className="edit-form">
-            <h4>Car</h4>
-            <form>
-              <div className="form-group">
-                <label htmlFor="make">Make</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="make"
-                  value={currentCar.make}
-                  onChange={this.onChangeMake}
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="model">Model</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="model"
-                  value={currentCar.model}
-                  onChange={this.onChangeModel}
-                />
-              </div>
-            </form>
+        <div className="edit-form">
+          <h4>Car</h4>
+          <form>
+            <div className="form-group">
+              <label htmlFor="make">Make</label>
+              <input
+                type="text"
+                className="form-control"
+                id="make"
+                value={currentCar.make}
+                onChange={this.onChangeMake}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="model">Model</label>
+              <input
+                type="text"
+                className="form-control"
+                id="model"
+                value={currentCar.model}
+                onChange={this.onChangeModel}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="year">Year</label>
+              <input
+                type="number"
+                className="form-control"
+                id="year"
+                value={currentCar.year}
+                onChange={this.onChangeYear}
+                name="year"
+              />
+            </div>
 
-            <button
-              className="badge badge-danger mr-2"
-              onClick={this.deleteCar}
-            >
-              Delete
-            </button>
-
-            <button
-              type="submit"
-              className="badge badge-success"
-              onClick={this.updateCar}
-            >
-              Update
-            </button>
-            <p>{this.state.message}</p>
+            <div className="form-group">
+              <label htmlFor="blinkerFluidLevel">Blinker Fluid Level</label>
+              <select
+                className="form-control"
+                id="blinkerFluidLevel"
+                value={currentCar.blinkerFluidLevel}
+                onChange={this.onChangeBlinkerFluidLevel}
+                name="blinkerFluidLevel"
+              >
+                <option value="FULL">FULL</option>
+                <option value="LOW">LOW</option>
+                <option value="EMPTY">EMPTY</option>
+              </select>
+            </div>
+          </form>
+          <div className='container-btn'>
+          <button
+            type="submit"
+            className="btn btn-primary"
+            onClick={this.updateCar}
+          >
+            Update
+          </button>
+          <button
+            className="btn btn-danger"
+            onClick={this.deleteCar}
+          >
+            Delete
+          </button>
           </div>
-        ) : (
-          <div>
-            <br />
-            <p>Please click on a Car...</p>
-          </div>
-        )}
+          
+          
+          <p>{this.state.message}</p>
+        </div>
       </div>
     );
   }
