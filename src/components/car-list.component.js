@@ -55,7 +55,8 @@ export default class CarsList extends Component {
   }
 
   render() {
-    const { cars, currentCar } = this.state;
+    const { cars } = this.state;
+    console.log(cars);
 
     return (
       <div>
@@ -74,14 +75,18 @@ export default class CarsList extends Component {
             </div>
           ))}
           
-          
         </div>
-        <button
+        {cars.length ? (
+          <button
             className="m-3 btn btn-sm btn-danger"
             onClick={this.removeAllCars}
           >
             Remove All
-        </button>
+          </button>
+        ) : (
+          <p>Add a car!</p>
+        )}
+        
       </div>
     );
   }

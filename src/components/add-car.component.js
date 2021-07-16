@@ -151,7 +151,7 @@ export default class AddCar extends Component {
               </select>
             </div>
             <div className='container-btn'>
-              <button onClick={this.saveCar} className="btn btn-success">
+              <button onClick={this.saveCar} className="btn btn-primary">
                 Submit
               </button>
             </div>
